@@ -101,13 +101,6 @@ public class MainActivity extends Activity {
             try {
                 Toast.makeText(getApplicationContext(), adapter.getItem(pos), Toast.LENGTH_SHORT).show();
                 Log.d("DEBUG", adapter.getItem(pos));
-                String message = adapter.getItem(pos);
-                String[] contentSms = message.split(":");
-                String typeSms = contentSms[0];
-                Uri uri = Uri.parse(contentSms[1]);
-                Log.d("DEBUG", typeSms);
-                Log.d("DEBUG", String.valueOf(uri));
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=cxLG2wtE7TM")));
 
             } catch (Exception e) {
                 e.printStackTrace();

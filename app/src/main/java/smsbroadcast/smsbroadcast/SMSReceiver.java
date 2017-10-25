@@ -3,9 +3,11 @@ package smsbroadcast.smsbroadcast;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
+import android.util.Log;
 import android.widget.Toast;
 public class SMSReceiver extends BroadcastReceiver {
     // SmsManager class is responsible for all SMS related actions
@@ -24,11 +26,20 @@ public class SMSReceiver extends BroadcastReceiver {
                     String phoneNumber = sms.getDisplayOriginatingAddress();
                     String sender = phoneNumber;
                     String message = sms.getDisplayMessageBody();
+
+                    String[] contentSms = message.split(":");
+                    String typeSms = contentSms[0];
+                    Uri uri = Uri.parse(contentSms[1]);
+                    Log.d("DEBUG", typeSms);
+                    Log.d("DEBUG", String.valueOf(uri));
+
                     String formattedText = String.format(context.getResources().getString(R.string.sms_message), sender, message);
                     // Display the SMS message in a Toast
                     Toast.makeText(context, formattedText, Toast.LENGTH_LONG).show();
                     MainActivity inst = MainActivity.instance();
                     inst.updateList(formattedText);
+                    Log.d("DEBUG", "updatedList");
+                    inst.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=cxLG2wtE7TM")));
                 }
             }
         } catch (Exception e) {
